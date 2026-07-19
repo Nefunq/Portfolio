@@ -675,7 +675,24 @@
       -webkit-overflow-scrolling: touch;
       line-height: 2.1;
       position: relative;
+      z-index: 0;
       font-size: clamp(0.6rem, 0.8vw, 0.7rem);
+    }
+
+    .boxplot-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+      opacity: 0.12;
+    }
+
+    .dark .boxplot-bg {
+      opacity: 0.06;
     }
 
     .window-body::-webkit-scrollbar {
@@ -890,7 +907,7 @@
       pointer-events: none;
       z-index: 0;
       overflow: hidden;
-      opacity: 0.08;
+      opacity: 0.1;
     }
 
     .project-bars .bar {
@@ -898,6 +915,22 @@
       border-radius: 2px 2px 0 0;
       min-width: 2px;
       transition: opacity 0.3s;
+    }
+
+    .skill-chart {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+      border-radius: 6px;
+      opacity: 0.1;
+    }
+
+    .dark .skill-chart {
+      opacity: 0.04;
     }
 
     .project-icon {
@@ -1093,6 +1126,125 @@
     .contact-card>* {
       position: relative;
       z-index: 1;
+    }
+
+    /* ── PROFILE PHOTO (contact card) ── */
+    .profile-cell {
+      position: absolute;
+      top: 0.8rem;
+      left: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      z-index: 2;
+      text-align: left;
+    }
+
+    .profile-frame {
+      position: relative;
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+    }
+
+    .profile-frame:hover {
+      border-color: var(--accent2);
+      box-shadow: 0 0 0 4px rgba(143, 101, 8, 0.18);
+      transform: scale(1.06);
+    }
+
+    .profile-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.45s ease, filter 0.45s ease;
+      pointer-events: none;
+      border-radius: 50%;
+    }
+
+    .profile-default {
+      z-index: 2;
+      filter: grayscale(0.2) brightness(0.94);
+    }
+
+    .profile-frame:hover .profile-default {
+      opacity: 0;
+      filter: grayscale(0.5) brightness(1.1);
+    }
+
+    .profile-hover {
+      z-index: 1;
+      opacity: 0;
+    }
+
+    .profile-frame:hover .profile-hover {
+      opacity: 1;
+    }
+
+    .profile-scanlines {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      border-radius: 50%;
+      background: repeating-linear-gradient(0deg,
+          transparent, transparent 2px,
+          rgba(0, 0, 0, 0.07) 2px, rgba(0, 0, 0, 0.07) 4px);
+      transition: opacity 0.4s ease;
+    }
+
+    .profile-frame:hover .profile-scanlines {
+      opacity: 0;
+    }
+
+    .dark .profile-scanlines {
+      background: repeating-linear-gradient(0deg,
+          transparent, transparent 2px,
+          rgba(0, 0, 0, 0.15) 2px, rgba(0, 0, 0, 0.15) 4px);
+    }
+
+    .dark .profile-frame:hover {
+      box-shadow: 0 0 0 4px rgba(232, 184, 75, 0.2);
+    }
+
+    .profile-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .profile-status {
+      font-family: var(--mono);
+      font-size: clamp(0.55rem, 0.7vw, 0.62rem);
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      transition: color 0.3s;
+    }
+
+    .profile-status::after {
+      content: attr(data-idle);
+    }
+
+    .profile-frame:hover~.profile-meta .profile-status {
+      color: var(--accent2);
+    }
+
+    .profile-frame:hover~.profile-meta .profile-status::after {
+      content: attr(data-active);
+    }
+
+    .profile-name {
+      font-family: var(--display);
+      font-size: clamp(0.85rem, 1.1vw, 0.95rem);
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
     }
 
     .contact-email {
@@ -2289,6 +2441,17 @@
   <!-- CONTACT -->
   <section id="contact">
     <div class="contact-card fade-up glass" data-stat="Response: ~4hrs">
+      <div class="profile-cell">
+        <div class="profile-frame">
+          <img src="profile_2.png" alt="" class="profile-img profile-default" loading="lazy" />
+          <img src="profile_1.png" alt="" class="profile-img profile-hover" loading="lazy" />
+          <div class="profile-scanlines" aria-hidden="true"></div>
+        </div>
+        <div class="profile-meta">
+          <span class="profile-status" data-idle=" idle" data-active=" active">[status:</span>
+          <span class="profile-name">Mohammed Arshad</span>
+        </div>
+      </div>
       <p class="section-label"># In [06] — Establish connection</p>
       <h2 class="section-title" style="margin-bottom:0.5rem;">Ready to Deploy, <span class="gradient-text-accent">Are
           you?</span></h2>
@@ -2616,6 +2779,98 @@
           }
           card.prepend(container);
         });
+      })();
+
+      // ── Random line chart backgrounds for skill cards ──
+      (function initSkillCharts() {
+        var chartColors = [
+          'var(--accent)', 'var(--accent2)', 'var(--accent3)',
+          'var(--accent-red)', 'var(--green)', 'var(--muted)'
+        ];
+        document.querySelectorAll('.skill-card').forEach(function (card) {
+          if (card.querySelector('.skill-chart')) return;
+          var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          svg.setAttribute('class', 'skill-chart');
+          svg.setAttribute('viewBox', '0 0 200 100');
+          svg.setAttribute('preserveAspectRatio', 'none');
+          var color = chartColors[Math.floor(Math.random() * chartColors.length)];
+          var pts = 5 + Math.floor(Math.random() * 6);
+          var polyPts = [], areaPts = [];
+          for (var i = 0; i < pts; i++) {
+            var x = (i / (pts - 1)) * 200;
+            var y = 5 + Math.random() * 75;
+            polyPts.push(x.toFixed(1) + ',' + y.toFixed(1));
+            areaPts.push(x.toFixed(1) + ',' + y.toFixed(1));
+          }
+          var polyline = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+          polyline.setAttribute('points', polyPts.join(' '));
+          polyline.style.stroke = color;
+          polyline.setAttribute('stroke-width', '2');
+          polyline.setAttribute('fill', 'none');
+          polyline.setAttribute('stroke-linecap', 'round');
+          polyline.setAttribute('stroke-linejoin', 'round');
+          svg.appendChild(polyline);
+          var polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+          polygon.setAttribute('points', '0,100 ' + areaPts.join(' ') + ' 200,100');
+          polygon.style.fill = color;
+          polygon.setAttribute('opacity', '0.3');
+          svg.appendChild(polygon);
+          card.prepend(svg);
+        });
+      })();
+
+      // ── Random box & whisker plot background for the floating code snippet ──
+      (function initBoxplotBg() {
+        var boxColors = [
+          'var(--accent)', 'var(--accent2)', 'var(--accent3)',
+          'var(--accent-red)', 'var(--green)', 'var(--muted)'
+        ];
+        var body = document.querySelector('.hero-badge .window-body');
+        if (!body || body.querySelector('.boxplot-bg')) return;
+        var color = boxColors[Math.floor(Math.random() * boxColors.length)];
+        var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('class', 'boxplot-bg');
+        svg.setAttribute('viewBox', '0 0 400 100');
+        svg.setAttribute('preserveAspectRatio', 'none');
+        var count = 4 + Math.floor(Math.random() * 4);
+        for (var i = 0; i < count; i++) {
+          var cx = ((i + 0.5) / count) * 400;
+          var bw = 200 / count * 0.5;
+          var q1 = 20 + Math.random() * 20;
+          var med = 40 + Math.random() * 20;
+          var q3 = 60 + Math.random() * 20;
+          var lo = Math.max(2, q1 - 10 - Math.random() * 15);
+          var hi = Math.min(98, q3 + 10 + Math.random() * 15);
+          var group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+          group.style.stroke = color;
+          group.setAttribute('fill', 'none');
+          group.setAttribute('stroke-width', '1.2');
+          var wLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          wLine.setAttribute('x1', cx); wLine.setAttribute('y1', lo);
+          wLine.setAttribute('x2', cx); wLine.setAttribute('y2', hi);
+          group.appendChild(wLine);
+          var box = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+          box.setAttribute('x', cx - bw / 2); box.setAttribute('y', q1);
+          box.setAttribute('width', bw); box.setAttribute('height', q3 - q1);
+          box.style.fill = color;
+          box.setAttribute('fill-opacity', '0.15');
+          group.appendChild(box);
+          var medLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          medLine.setAttribute('x1', cx - bw / 2); medLine.setAttribute('y1', med);
+          medLine.setAttribute('x2', cx + bw / 2); medLine.setAttribute('y2', med);
+          medLine.setAttribute('stroke-width', '2.5');
+          group.appendChild(medLine);
+          var capLo = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          capLo.setAttribute('x1', cx - bw / 3); capLo.setAttribute('y1', lo);
+          capLo.setAttribute('x2', cx + bw / 3); capLo.setAttribute('y2', lo);
+          group.appendChild(capLo);
+          var capHi = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          capHi.setAttribute('x1', cx - bw / 3); capHi.setAttribute('y1', hi);
+          capHi.setAttribute('x2', cx + bw / 3); capHi.setAttribute('y2', hi);
+          group.appendChild(capHi);
+          svg.appendChild(group);
+        }
+        body.prepend(svg);
       })();
 
       // ── Scatter plot with regression line background ──
