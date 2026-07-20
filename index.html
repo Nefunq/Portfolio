@@ -9,11 +9,12 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="format-detection" content="telephone=no" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-  <title>Mohammed Arshad — Data Scientist &amp; Full-Stack Developer</title>
-  <meta name="description" content="Pune-based Data Scientist &amp; Full-Stack Developer. Python, ML, data analysis, and clean interfaces. Available for opportunities." />
-  <meta name="keywords" content="Data Scientist, Full-Stack Developer, Python, Machine Learning, Pune, Mohammed Arshad, Portfolio" />
-  <meta name="author" content="Mohammed Arshad" />
+  <title>Nefunq — Mohammed Arshad | Data Scientist &amp; Full-Stack Developer</title>
+  <meta name="description" content="Nefunq — Pune-based Data Scientist &amp; Full-Stack Developer. Python, ML, data analysis, and clean interfaces. Available for opportunities." />
+  <meta name="keywords" content="Nefunq, Data Scientist, Full-Stack Developer, Python, Machine Learning, Pune, Mohammed Arshad, Portfolio" />
+  <meta name="author" content="Mohammed Arshad (Nefunq)" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://nefunq.github.io/Portfolio/" />
   <meta name="google-site-verification" content="L1P0cL-eeea02SZOGYPPlgiJEczlGEibbHCna9iNnZ4" />
@@ -181,6 +182,7 @@
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
+      will-change: transform;
       z-index: 100;
       height: var(--nav-height);
       min-height: var(--nav-height);
@@ -562,6 +564,7 @@
       touch-action: manipulation;
       user-select: none;
       -webkit-appearance: none;
+      -moz-appearance: none;
       appearance: none;
     }
 
@@ -1300,24 +1303,6 @@
       letter-spacing: -0.01em;
     }
 
-    .contact-email {
-      font-size: clamp(0.95rem, 2.5vw, 1.3rem);
-      font-family: var(--mono);
-      color: var(--accent);
-      text-decoration: none;
-      display: inline-block;
-      margin: 0.8rem 0 1.8rem;
-      border-bottom: 2px solid var(--accent2);
-      padding-bottom: 3px;
-      transition: opacity 0.2s;
-      font-weight: 500;
-      word-break: break-word;
-    }
-
-    .contact-email:hover {
-      opacity: 0.7;
-    }
-
     .contact-links {
       display: flex;
       justify-content: center;
@@ -1342,6 +1327,9 @@
       min-height: 40px;
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
     }
 
     .social-btn:hover {
@@ -1488,6 +1476,14 @@
         left: -1.8rem;
         width: 10px;
         height: 10px;
+      }
+
+      .profile-cell {
+        position: relative;
+        top: auto;
+        left: auto;
+        justify-content: center;
+        margin-bottom: 1rem;
       }
 
       .contact-links {
@@ -1794,6 +1790,7 @@
       font-size: 1.1rem;
       touch-action: manipulation;
       -webkit-appearance: none;
+      -moz-appearance: none;
       appearance: none;
     }
 
@@ -1837,7 +1834,7 @@
     /* ── CUSTOM CURSOR (desktop only) ── */
     @media (pointer: fine) {
       body {
-        cursor: url('cursor-48.png') 24 24, auto;
+        cursor: url('cursor-32.png') 16 16, auto;
       }
 
       a,
@@ -1973,6 +1970,7 @@
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
       -webkit-appearance: none;
+      -moz-appearance: none;
       appearance: none;
       flex-shrink: 0;
     }
@@ -2160,7 +2158,7 @@
         <li><a href="#certification">Certs</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode" style="font-size:0">&#8203;</button>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false"
         aria-controls="nav-links">
         <span></span><span></span><span></span>
@@ -2176,7 +2174,7 @@
       <div class="boot-line">import arshad.all as portfolio</div>
       <div class="boot-line"># All cells executed successfully</div>
     </div>
-    <p class="hero-eyebrow">Available for opportunities</p>
+    <p class="hero-eyebrow">Nefunq — Available for opportunities</p>
     <h1 class="hero-name">
       <span class="line1">Mohammed</span>
       <span class="highlight gradient-text">ARSHAD</span>
@@ -2496,8 +2494,8 @@
     <div class="contact-card fade-up glass" data-stat="Response: ~4hrs">
       <div class="profile-cell">
         <div class="profile-frame">
-          <img src="profile_2.png" alt="" class="profile-img profile-default" loading="lazy" />
-          <img src="profile_1.png" alt="" class="profile-img profile-hover" loading="lazy" />
+          <img src="profile_2.png" alt="Nefunq" class="profile-img profile-default" loading="lazy" />
+          <img src="profile_1.png" alt="Nefunq" class="profile-img profile-hover" loading="lazy" />
           <div class="profile-scanlines" aria-hidden="true"></div>
         </div>
         <div class="profile-meta">
@@ -2511,8 +2509,13 @@
       <p style="color:var(--subtext); margin-bottom:0.5rem; font-size:clamp(0.85rem,1vw,0.95rem);">
         Open to a full-time role, freelance project, or just a good conversation about data —
       </p>
-      <a href="mailto:arshadmomin7750@gmail.com" class="contact-email">GMail</a>
       <div class="contact-links">
+        <a href="mailto:arshadmomin7750@gmail.com" target="_blank" rel="noopener noreferrer" class="social-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.91 12 9.818l6.545-4.91 1.528-1.418C21.69 2.28 24 3.434 24 5.457z"/>
+          </svg>
+          Gmail
+        </a>
         <a href="https://github.com/Nefunq" target="_blank" rel="noopener noreferrer" class="social-btn">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path
@@ -2687,15 +2690,18 @@
       var storedTheme = localStorage.getItem('theme');
       var themeColorMeta = document.querySelector('meta[name="theme-color"]');
 
+      var sunSVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+      var moonSVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+
       function applyDark() {
         document.documentElement.classList.add('dark');
-        themeToggle.textContent = '☀️';
+        themeToggle.innerHTML = sunSVG;
         if (themeColorMeta) themeColorMeta.setAttribute('content', '#0d1117');
       }
 
       function applyLight() {
         document.documentElement.classList.remove('dark');
-        themeToggle.textContent = '🌙';
+        themeToggle.innerHTML = moonSVG;
         if (themeColorMeta) themeColorMeta.setAttribute('content', '#eef1ee');
       }
 
