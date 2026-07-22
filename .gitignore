@@ -1,7 +1,17 @@
 # Sensitive configuration
 config.php
 .env
+.env.local
+.env.*.local
 *.local.php
+credentials.json
+
+# Secrets & keys
+*.key
+*.pem
+*.cert
+*.p12
+*.pfx
 
 # OS junk
 .DS_Store
@@ -15,3 +25,14 @@ Thumbs.db
 # Logs
 *.log
 error_log
+
+# Python
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+# Build artifacts
+dist/
+build/
