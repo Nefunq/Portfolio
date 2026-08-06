@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
   <meta name="theme-color" content="#eef1ee" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d1117" />
   <meta name="color-scheme" content="light" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -12,8 +13,10 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
   <title>Nefunq — Mohammed Arshad | Data Scientist &amp; Full-Stack Developer</title>
-  <meta name="description" content="Nefunq — Pune-based Data Scientist &amp; Full-Stack Developer. Python, ML, data analysis, and clean interfaces. Available for opportunities." />
-  <meta name="keywords" content="Nefunq, Data Scientist, Full-Stack Developer, Python, Machine Learning, Pune, Mohammed Arshad, Portfolio" />
+  <meta name="description"
+    content="Nefunq — Pune-based Data Scientist &amp; Full-Stack Developer. Python, ML, data analysis, and clean interfaces. Available for opportunities." />
+  <meta name="keywords"
+    content="Nefunq, Data Scientist, Full-Stack Developer, Python, Machine Learning, Pune, Mohammed Arshad, Portfolio" />
   <meta name="author" content="Mohammed Arshad (Nefunq)" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://nefunq.github.io/Portfolio/" />
@@ -23,7 +26,8 @@
   <link rel="apple-touch-icon" href="favicon.ico" />
 
   <meta property="og:title" content="Mohammed Arshad — Data Scientist &amp; Full-Stack Developer" />
-  <meta property="og:description" content="Pune-based Data Scientist &amp; Full-Stack Developer. Python, ML, data analysis, and clean interfaces." />
+  <meta property="og:description"
+    content="Pune-based Data Scientist &amp; Full-Stack Developer. Python, ML, data analysis, and clean interfaces." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://nefunq.github.io/Portfolio/" />
   <meta property="og:image" content="https://nefunq.github.io/Portfolio/profile_2.png" />
@@ -34,7 +38,8 @@
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Mohammed Arshad — Data Scientist &amp; Full-Stack Developer" />
-  <meta name="twitter:description" content="Pune-based Data Scientist &amp; Full-Stack Developer. Python, ML, data analysis, and clean interfaces." />
+  <meta name="twitter:description"
+    content="Pune-based Data Scientist &amp; Full-Stack Developer. Python, ML, data analysis, and clean interfaces." />
   <meta name="twitter:image" content="https://nefunq.github.io/Portfolio/profile_2.png" />
 
   <script type="application/ld+json">
@@ -78,6 +83,7 @@
   <style>
     /* ── RESET & VARIABLES ── */
     :root {
+      color-scheme: light;
       --bg: #eef1ee;
       --paper-line: #d3dad1;
       --surface: #ffffff;
@@ -94,6 +100,10 @@
       --green: #227a45;
       --yellow: #8f6508;
       --dim: #8a978f;
+      --neon-cyan: #0e7fbf;
+      --neon-glow: rgba(14, 127, 191, 0.3);
+      --green-dim: rgba(34, 122, 69, 0.08);
+      --green-glow: rgba(34, 122, 69, 0.4);
       --code-bg: #1e2530;
       --code-text: #c8d0d8;
       --code-comment: #6b7788;
@@ -113,6 +123,7 @@
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--nav-height) + 1rem);
       -webkit-text-size-adjust: 100%;
       text-size-adjust: 100%;
       font-size: 16px;
@@ -141,6 +152,7 @@
       font-family: var(--sans);
       line-height: 1.6;
       overflow-x: hidden;
+      overflow-wrap: break-word;
       min-height: 100vh;
       min-height: 100dvh;
     }
@@ -1614,6 +1626,7 @@
 
     /* ── DARK MODE ── */
     .dark {
+      color-scheme: dark;
       --bg: #0d1117;
       --paper-line: #161e2b;
       --surface: #161e2b;
@@ -1630,6 +1643,10 @@
       --green: #3dce7a;
       --yellow: #e8b84b;
       --dim: #4a5b75;
+      --neon-cyan: #2fd4e0;
+      --neon-glow: rgba(47, 212, 224, 0.35);
+      --green-dim: rgba(61, 206, 122, 0.1);
+      --green-glow: rgba(61, 206, 122, 0.45);
       --code-bg: #0d1117;
     }
 
@@ -2125,6 +2142,502 @@
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       }
     }
+
+    /* ── CYBERPUNK HUD LAYER ────────────────────────────────────────────
+       Holographic / hacker-terminal animations layered on top of the
+       notebook aesthetic. Every change below is additive and uses only
+       GPU-friendly properties (transform / opacity). All new animations
+       are covered by the prefers-reduced-motion block at the end.       */
+
+    section {
+      position: relative;
+    }
+
+    /* 9. Matrix rain behind hero content (canvas injected via JS) */
+    .matrix-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* 1. Scramble/decode text (class applied via JS) */
+    .scrambling {
+      text-shadow: 0 0 12px var(--neon-glow);
+    }
+
+    /* Glitch flicker on boot lines (rides the existing fade-in delays) */
+    .boot-line {
+      animation: fade-in 0.3s forwards, boot-flicker 0.5s ease-in-out both;
+    }
+
+    @keyframes boot-flicker {
+      0% {
+        opacity: 1;
+      }
+
+      10% {
+        opacity: 0.5;
+        text-shadow: 0 0 8px var(--neon-glow);
+      }
+
+      22% {
+        opacity: 1;
+      }
+
+      36% {
+        opacity: 0.7;
+      }
+
+      50% {
+        opacity: 1;
+        text-shadow: none;
+      }
+
+      64% {
+        opacity: 0.85;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    /* 2. Neon level-meter skill bars (reskin; width animation untouched) */
+    .skill-bar-track {
+      height: 8px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-bar-track::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: repeating-linear-gradient(90deg,
+          transparent 0, transparent calc(10% - 1px),
+          var(--border) calc(10% - 1px), var(--border) 10%);
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .skill-bar-fill {
+      background: linear-gradient(90deg, var(--accent), var(--neon-cyan));
+      box-shadow: 0 0 10px var(--neon-glow), 0 0 3px var(--neon-cyan);
+      position: relative;
+    }
+
+    .skill-bar-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: 2px;
+      background: var(--neon-cyan);
+      box-shadow: 0 0 10px 2px var(--neon-glow);
+      opacity: 0.7;
+      animation: meter-pulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes meter-pulse {
+      0%,
+      100% {
+        opacity: 0.45;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    /* 3. Holographic project cards: 3D tilt + neon corner brackets */
+    .project-card:hover {
+      transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(-4px);
+      box-shadow: 0 14px 30px -10px rgba(27, 42, 46, 0.18), 0 0 18px var(--neon-glow);
+      border-color: var(--neon-cyan);
+      transition: transform 0.15s ease-out, box-shadow 0.25s ease-out, border-color 0.25s ease-out;
+    }
+
+    .corner {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border: 0 solid var(--neon-cyan);
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0;
+      filter: drop-shadow(0 0 4px var(--neon-glow));
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+    }
+
+    .corner.tl {
+      top: 7px;
+      left: 7px;
+      border-top-width: 2px;
+      border-left-width: 2px;
+      transform: scale(0.2);
+      transform-origin: top left;
+    }
+
+    .corner.tr {
+      top: 7px;
+      right: 7px;
+      border-top-width: 2px;
+      border-right-width: 2px;
+      transform: scale(0.2);
+      transform-origin: top right;
+    }
+
+    .corner.br {
+      bottom: 7px;
+      right: 7px;
+      border-bottom-width: 2px;
+      border-right-width: 2px;
+      transform: scale(0.2);
+      transform-origin: bottom right;
+    }
+
+    .corner.bl {
+      bottom: 7px;
+      left: 7px;
+      border-bottom-width: 2px;
+      border-left-width: 2px;
+      transform: scale(0.2);
+      transform-origin: bottom left;
+    }
+
+    .project-card:hover .corner,
+    .project-card:focus-within .corner {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .project-card:hover .corner.tr {
+      transition-delay: 50ms;
+    }
+
+    .project-card:hover .corner.br {
+      transition-delay: 100ms;
+    }
+
+    .project-card:hover .corner.bl {
+      transition-delay: 150ms;
+    }
+
+    /* 4. ACCESS GRANTED unlock flash on certifications */
+    .unlock-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.7rem;
+      font-family: var(--mono);
+      font-size: clamp(0.5rem, 0.6vw, 0.6rem);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--green);
+      border: 1px solid var(--green);
+      border-radius: 3px;
+      padding: 2px 8px;
+      background: var(--green-dim);
+      opacity: 0;
+      transform: translateY(6px) scale(0.92);
+    }
+
+    .timeline-item.unlocked .unlock-badge {
+      animation: access-granted 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes access-granted {
+      0% {
+        opacity: 0;
+        transform: translateY(6px) scale(0.92);
+        box-shadow: 0 0 0 0 var(--green-glow);
+        filter: brightness(2);
+      }
+
+      15% {
+        opacity: 1;
+        transform: translateY(0) scale(1.05);
+        box-shadow: 0 0 18px var(--green-glow);
+      }
+
+      25% {
+        transform: translateY(0) scale(1);
+      }
+
+      60% {
+        filter: brightness(1.5);
+      }
+
+      100% {
+        opacity: 0.92;
+        transform: none;
+        box-shadow: 0 0 6px var(--green-glow);
+        filter: brightness(1);
+      }
+    }
+
+    .timeline-item.unlocked::after {
+      content: '';
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      right: -10%;
+      bottom: -10%;
+      background: radial-gradient(closest-side, var(--green-glow), transparent 70%);
+      opacity: 0;
+      pointer-events: none;
+      animation: access-flash 1s ease-out forwards;
+    }
+
+    @keyframes access-flash {
+      0% {
+        opacity: 0;
+      }
+
+      20% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    /* 5. Nav neon underline + scanline flicker (hover-capable devices) */
+    @media (hover: hover) {
+      .nav-links a::before {
+        background: linear-gradient(90deg, var(--accent2), var(--neon-cyan));
+        box-shadow: 0 0 8px var(--neon-glow);
+      }
+
+      .nav-links a::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: repeating-linear-gradient(180deg, transparent 0 1px, var(--accent-dim) 1px 2px);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .nav-links a:hover::after {
+        animation: scan-flicker 0.4s steps(4) 2;
+      }
+    }
+
+    @keyframes scan-flicker {
+      0% {
+        opacity: 0.2;
+      }
+
+      50% {
+        opacity: 0.55;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    /* CTA "execute" flash on click */
+    .btn {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: -20%;
+      bottom: -20%;
+      left: 0;
+      width: 55%;
+      background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+      transform: translateX(-160%) skewX(-18deg);
+      pointer-events: none;
+    }
+
+    .btn.executing::after {
+      animation: btn-execute 0.5s ease-out;
+    }
+
+    .btn.executing {
+      filter: brightness(1.18);
+    }
+
+    @keyframes btn-execute {
+      to {
+        transform: translateX(320%) skewX(-18deg);
+      }
+    }
+
+    /* 6. Dark mode only: data packets traveling the grid lines.
+          Light mode keeps the clean graph-paper look. */
+    .dark .grid-bg::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-image: radial-gradient(var(--neon-cyan) 1.5px, transparent 1.5px);
+      background-size: 68px 34px;
+      background-repeat: repeat;
+      opacity: 0;
+      pointer-events: none;
+      will-change: transform, opacity;
+      animation: data-packet 6s linear infinite;
+    }
+
+    @keyframes data-packet {
+      0% {
+        transform: translateX(0);
+        opacity: 0;
+      }
+
+      12% {
+        opacity: 0.85;
+      }
+
+      88% {
+        opacity: 0.85;
+      }
+
+      100% {
+        transform: translateX(34px);
+        opacity: 0;
+      }
+    }
+
+    /* 7. Power-on scanline sweep as each section enters the viewport */
+    .power-sweep {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .power-sweep::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 38%;
+      background: linear-gradient(180deg,
+          transparent 0%,
+          var(--accent-dim) 32%,
+          var(--neon-glow) 48%,
+          var(--neon-cyan) 50%,
+          var(--neon-glow) 52%,
+          var(--accent-dim) 68%,
+          transparent 100%);
+      transform: translateY(-130%);
+      opacity: 0.85;
+    }
+
+    section.swept .power-sweep::before {
+      animation: power-on 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes power-on {
+      to {
+        transform: translateY(400%);
+      }
+    }
+
+    /* 8. Trailing cursor glow (fine pointers only) */
+    .cursor-glow {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 48px;
+      height: 48px;
+      margin: -24px 0 0 -24px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99993;
+      background: radial-gradient(circle, var(--neon-glow) 0%, transparent 68%);
+      mix-blend-mode: screen;
+      opacity: 0;
+      will-change: transform;
+      transition: opacity 0.35s ease;
+    }
+
+    @media (pointer: fine) {
+      .cursor-glow.on {
+        opacity: 0.55;
+      }
+    }
+
+    /* Reduce motion: cover every new animation, including
+       pseudo-element animations that `*` cannot reach */
+    @media (prefers-reduced-motion: reduce) {
+
+      .skill-bar-fill::after,
+      .power-sweep::before,
+      .btn::after,
+      .nav-links a::after,
+      .grid-bg::after,
+      .timeline-item.unlocked::after,
+      .unlock-badge,
+      .corner {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      .unlock-badge {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      .cursor-glow {
+        opacity: 0 !important;
+      }
+
+      .matrix-bg {
+        display: none !important;
+      }
+    }
+
+    @media (prefers-reduced-data: reduce) {
+      .cursor-glow {
+        display: none !important;
+      }
+
+      .grid-bg::after {
+        display: none !important;
+      }
+    }
+
+    @media print {
+
+      .power-sweep,
+      .unlock-badge,
+      .corner,
+      .cursor-glow,
+      .matrix-bg {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 
@@ -2148,6 +2661,9 @@
   <!-- CUSTOM CURSOR BADGE (desktop only) -->
   <div class="cursor-badge" id="cursor-badge" aria-hidden="true"></div>
 
+  <!-- TRAILING CURSOR GLOW (desktop only) -->
+  <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
   <!-- NAV -->
   <nav>
     <span class="nav-logo">nefunq.dev
@@ -2163,7 +2679,8 @@
         <li><a href="#certification">Certs</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode" style="font-size:0">&#8203;</button>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"
+        style="font-size:0">&#8203;</button>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false"
         aria-controls="nav-links">
         <span></span><span></span><span></span>
@@ -2254,7 +2771,7 @@
   <!-- SKILLS -->
   <section id="skills">
     <p class="section-label fade-up"># In [01] — What I work with</p>
-    <h2 class="section-title fade-up"><span class="gradient-text">Arsenal</span></h2>
+    <h2 class="section-title fade-up"><span class="gradient-text-accent">Arsenal</span></h2>
 
     <div class="skills-grid fade-up stagger">
       <div class="skill-card glass" data-stat="92% proficiency">
@@ -2347,7 +2864,7 @@
 
     <div class="projects-grid stagger">
 
-      <div class="project-card fade-up glass" data-cell="In [1]:" data-stat="2.1M rows · 195 countries">>
+      <div class="project-card fade-up glass" data-cell="In [1]:" data-stat="2.1M rows · 195 countries">
         <div class="project-icon">🌍</div>
         <p class="project-name">World Population Analysis</p>
         <p class="project-desc">Cleaned and merged World Bank datasets; applied logarithmic scaling and regional
@@ -2359,7 +2876,7 @@
           on GitHub →</a>
       </div>
 
-      <div class="project-card fade-up glass" data-cell="In [2]:" data-stat="Feature importance ≈ 0.89">>
+      <div class="project-card fade-up glass" data-cell="In [2]:" data-stat="Feature importance ≈ 0.89">
         <div class="project-icon">🚢</div>
         <p class="project-name">Titanic Survival Analysis</p>
         <p class="project-desc">Engineered family size and age group features, used class/gender-based imputation for
@@ -2372,7 +2889,7 @@
           on GitHub →</a>
       </div>
 
-      <div class="project-card fade-up glass" data-cell="In [3]:" data-stat="Precision: 89.5%">>
+      <div class="project-card fade-up glass" data-cell="In [3]:" data-stat="Precision: 89.5%">
         <div class="project-icon">🏦</div>
         <p class="project-name">Bank Marketing Prediction</p>
         <p class="project-desc">Built a Scikit-learn pipeline with a Decision Tree classifier to predict term deposit
@@ -2386,7 +2903,7 @@
           on GitHub →</a>
       </div>
 
-      <div class="project-card fade-up glass" data-cell="In [4]:" data-stat="1.4M records · 12 features">>
+      <div class="project-card fade-up glass" data-cell="In [4]:" data-stat="1.4M records · 12 features">
         <div class="project-icon">🚗</div>
         <p class="project-name">UK Road Accident Analysis</p>
         <p class="project-desc">Processed timestamps into hourly patterns and mapped accident hotspots interactively
@@ -2399,7 +2916,7 @@
           on GitHub →</a>
       </div>
 
-      <div class="project-card fade-up glass" data-cell="In [5]:" data-stat="6 db tables · ACID">>
+      <div class="project-card fade-up glass" data-cell="In [5]:" data-stat="6 db tables · ACID">
         <div class="project-icon">💸</div>
         <p class="project-name">SplitWise Clone</p>
         <p class="project-desc">Full-stack expense-sharing web app with group management, equal-split billing, live
@@ -2412,7 +2929,7 @@
           class="project-link">View on GitHub →</a>
       </div>
 
-      <div class="project-card fade-up glass" data-cell="In [6]:" data-stat="200+ CVEs · 4 scan engines">>
+      <div class="project-card fade-up glass" data-cell="In [6]:" data-stat="200+ CVEs · 4 scan engines">
         <div class="project-icon">🛡️</div>
         <p class="project-name">VulnScan</p>
         <p class="project-desc">Ethical vulnerability scanner that combines port scanning, public-data enrichment, CVE
@@ -2517,7 +3034,8 @@
       <div class="contact-links">
         <a href="mailto:arshadmomin7750@gmail.com" target="_blank" rel="noopener noreferrer" class="social-btn">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.91 12 9.818l6.545-4.91 1.528-1.418C21.69 2.28 24 3.434 24 5.457z"/>
+            <path
+              d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.91 12 9.818l6.545-4.91 1.528-1.418C21.69 2.28 24 3.434 24 5.457z" />
           </svg>
           Gmail
         </a>
@@ -2530,7 +3048,8 @@
         </a>
         <a href="https://wa.me/nefunq" target="_blank" rel="noopener noreferrer" class="social-btn">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
           </svg>
           WhatsApp
         </a>
@@ -3061,6 +3580,301 @@
           if (dot.parentNode) dot.parentNode.removeChild(dot);
         }, 10500);
       }, true);
+
+      // ════════════════════════════════════════════════════════════════
+      // ── CYBERPUNK HUD LAYER ──
+      // Scramble-decode text, holographic tilts, ACCESS GRANTED unlocks,
+      // data packets, power-on sweeps and the cursor glow. All additive;
+      // every animated effect is skipped under prefers-reduced-motion.
+      // ════════════════════════════════════════════════════════════════
+
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+      // ── Power-on sweep shells (appended last so the stagger
+      //    nth-child offsets stay untouched) ──
+      document.querySelectorAll('section[id]').forEach(function (sec) {
+        var sweep = document.createElement('div');
+        sweep.className = 'power-sweep';
+        sweep.setAttribute('aria-hidden', 'true');
+        sec.appendChild(sweep);
+      });
+
+      // ── Scramble / decode-in text ──
+      var SCRAMBLE_GLYPHS = '#%&<>@$*!?=+^~/\\|{}[]';
+      var scrambledEls = new WeakSet();
+
+      function scrambleText(el) {
+        if (scrambledEls.has(el)) return;
+        scrambledEls.add(el);
+
+        var textNodes = [];
+        var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+        while (walker.nextNode()) {
+          var node = walker.currentNode;
+          if (node.textContent.trim()) textNodes.push(node);
+        }
+        if (!textNodes.length) return;
+
+        var origins = textNodes.map(function (n) { return n.textContent; });
+        el.setAttribute('aria-label', origins.join(' ').replace(/\s+/g, ' ').trim());
+        el.classList.add('scrambling');
+
+        var frames = 14;
+        var frame = 0;
+        var interval = setInterval(function () {
+          var progress = frame / frames;
+          textNodes.forEach(function (n, i) {
+            var src = origins[i];
+            var out = '';
+            for (var j = 0; j < src.length; j++) {
+              if (j < Math.floor(src.length * progress)) out += src[j];
+              else if (/\s/.test(src[j])) out += src[j];
+              else out += SCRAMBLE_GLYPHS[Math.floor(Math.random() * SCRAMBLE_GLYPHS.length)];
+            }
+            n.textContent = out;
+          });
+          frame++;
+          if (frame > frames) {
+            clearInterval(interval);
+            textNodes.forEach(function (n, i) { n.textContent = origins[i]; });
+            el.classList.remove('scrambling');
+            el.removeAttribute('aria-label');
+          }
+        }, 40);
+      }
+
+      // Hero name decodes right after the boot sequence finishes
+      var heroName = document.querySelector('.hero-name');
+      if (heroName && !reduceMotion) {
+        setTimeout(function () { scrambleText(heroName); }, 1500);
+      }
+
+      // ── Section observer: power-on sweep + title decode + unlocks ──
+      function unlockCerts() {
+        var items = document.querySelectorAll('#certification .timeline-item');
+        items.forEach(function (item, i) {
+          if (!item.querySelector('.unlock-badge')) {
+            var badge = document.createElement('span');
+            badge.className = 'unlock-badge';
+            badge.textContent = '\u25B8 ACCESS GRANTED';
+            item.appendChild(badge);
+          }
+          setTimeout(function () { item.classList.add('unlocked'); }, 150 + i * 220);
+        });
+      }
+
+      var sectionObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var sec = entry.target;
+          sec.classList.add('swept');
+          sectionObserver.unobserve(sec);
+          if (!reduceMotion) {
+            var title = sec.querySelector('.section-title');
+            if (title) scrambleText(title);
+          }
+          if (sec.id === 'certification') unlockCerts();
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll('section[id]').forEach(function (sec) {
+        sectionObserver.observe(sec);
+      });
+
+      // ── Holographic tilt + corner brackets on project cards ──
+      document.querySelectorAll('.project-card').forEach(function (card) {
+        if (card.querySelector('.corner')) return;
+        ['tl', 'tr', 'br', 'bl'].forEach(function (pos) {
+          var corner = document.createElement('span');
+          corner.className = 'corner ' + pos;
+          corner.setAttribute('aria-hidden', 'true');
+          card.appendChild(corner);
+        });
+      });
+
+      if (finePointer && !reduceMotion) {
+        document.querySelectorAll('.project-card').forEach(function (card) {
+          card.addEventListener('pointermove', function (e) {
+            var rect = card.getBoundingClientRect();
+            var px = (e.clientX - rect.left) / rect.width;
+            var py = (e.clientY - rect.top) / rect.height;
+            card.style.setProperty('--tilt-x', ((0.5 - py) * 5).toFixed(2) + 'deg');
+            card.style.setProperty('--tilt-y', ((px - 0.5) * 5).toFixed(2) + 'deg');
+          });
+          card.addEventListener('pointerleave', function () {
+            card.style.setProperty('--tilt-x', '0deg');
+            card.style.setProperty('--tilt-y', '0deg');
+          });
+        });
+      }
+
+      // ── CTA "execute" flash ──
+      document.querySelectorAll('.btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          btn.classList.remove('executing');
+          void btn.offsetWidth; // restart the animation
+          btn.classList.add('executing');
+          setTimeout(function () { btn.classList.remove('executing'); }, 550);
+        });
+      });
+
+      // ── Trailing cursor glow (fine pointers only) ──
+      var cursorGlow = document.getElementById('cursor-glow');
+      if (cursorGlow && finePointer && !reduceMotion) {
+        var glowX = -100;
+        var glowY = -100;
+        var targetX = -100;
+        var targetY = -100;
+        var glowActive = false;
+        var loopStarted = false;
+
+        function glowFrame() {
+          glowX += (targetX - glowX) * 0.25;
+          glowY += (targetY - glowY) * 0.25;
+          cursorGlow.style.transform = 'translate3d(' + glowX + 'px, ' + glowY + 'px, 0)';
+          requestAnimationFrame(glowFrame);
+        }
+
+        document.addEventListener('mousemove', function (e) {
+          targetX = e.clientX;
+          targetY = e.clientY;
+          if (!glowActive) {
+            glowActive = true;
+            glowX = e.clientX;
+            glowY = e.clientY;
+            cursorGlow.classList.add('on');
+            if (!loopStarted) {
+              loopStarted = true;
+              requestAnimationFrame(glowFrame);
+            }
+          }
+        }, { passive: true });
+
+        document.addEventListener('mouseleave', function () {
+          glowActive = false;
+          cursorGlow.classList.remove('on');
+        });
+      }
+
+      // ── Matrix rain in the hero background (falling 1s and 0s) ──
+      (function initMatrixRain() {
+        var hero = document.getElementById('hero');
+        if (!hero) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        if (window.matchMedia('(prefers-reduced-data: reduce)').matches) return;
+
+        var canvas = document.createElement('canvas');
+        canvas.className = 'matrix-bg';
+        canvas.setAttribute('aria-hidden', 'true');
+        hero.insertBefore(canvas, hero.firstChild);
+
+        var ctx = canvas.getContext('2d');
+        if (!ctx) return;
+        var fontSize = 14;
+        var trailLen = 14;
+        var cols = 0;
+        var drops = [];
+        var w = 0;
+        var h = 0;
+        var running = false;
+        var rafId = null;
+
+        function readColors() {
+          var s = getComputedStyle(document.documentElement);
+          var isDark = document.documentElement.classList.contains('dark');
+          return {
+            color: s.getPropertyValue('--green').trim() || '#227a45',
+            baseAlpha: isDark ? 0.5 : 0.3
+          };
+        }
+
+        var colors = readColors();
+
+        function resize() {
+          var rect = hero.getBoundingClientRect();
+          var dpr = Math.min(window.devicePixelRatio || 1, 2);
+          w = rect.width;
+          h = rect.height;
+          canvas.width = Math.max(1, Math.round(w * dpr));
+          canvas.height = Math.max(1, Math.round(h * dpr));
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          ctx.clearRect(0, 0, w, h);
+          cols = Math.max(1, Math.floor(w / fontSize));
+          drops = [];
+          for (var i = 0; i < cols; i++) {
+            drops.push({ y: Math.floor(Math.random() * -30), trail: [] });
+          }
+        }
+
+        function frame() {
+          if (!running) return;
+          ctx.clearRect(0, 0, w, h);
+          ctx.font = fontSize + 'px "IBM Plex Mono", monospace';
+          ctx.textBaseline = 'top';
+          for (var i = 0; i < cols; i++) {
+            var d = drops[i];
+            var trail = d.trail;
+            trail.push({ ch: Math.random() < 0.5 ? '1' : '0', y: d.y });
+            if (trail.length > trailLen) trail.shift();
+            for (var k = trail.length - 1; k >= 0; k--) {
+              var t = trail[k];
+              var yy = t.y * fontSize;
+              if (yy > h) continue;
+              if (yy < 0) break;
+              var age = trail.length - 1 - k;
+              ctx.globalAlpha = Math.min(1, colors.baseAlpha * (1 - age / trailLen) * (age === 0 ? 1.4 : 1));
+              ctx.fillText(t.ch, i * fontSize, yy);
+            }
+            if (Math.random() < 0.5) d.y += 1;
+            if (d.y * fontSize > h + 20 && Math.random() < 0.985) {
+              d.y = Math.floor(Math.random() * -30);
+              d.trail = [];
+            }
+          }
+          ctx.globalAlpha = 1;
+          rafId = requestAnimationFrame(frame);
+        }
+
+        resize();
+        running = true;
+        rafId = requestAnimationFrame(frame);
+
+        var resizeTimer;
+        window.addEventListener('resize', function () {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(resize, 200);
+        }, { passive: true });
+
+        // Re-read neon color when the theme changes
+        var themeBtn = document.getElementById('theme-toggle');
+        if (themeBtn) {
+          themeBtn.addEventListener('click', function () {
+            setTimeout(function () { colors = readColors(); }, 50);
+          });
+        }
+
+        var darkSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+        darkSchemeMedia.addEventListener('change', function () {
+          colors = readColors();
+        });
+
+        // Pause the rain while the hero is off-screen
+        var heroObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              if (!running) {
+                running = true;
+                rafId = requestAnimationFrame(frame);
+              }
+            } else if (running) {
+              running = false;
+              cancelAnimationFrame(rafId);
+            }
+          });
+        }, { threshold: 0.02 });
+        heroObserver.observe(hero);
+      })();
 
     })();
   </script>

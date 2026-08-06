@@ -1,38 +1,56 @@
-# Sensitive configuration
-config.php
-.env
-.env.local
-.env.*.local
-*.local.php
-credentials.json
-
-# Secrets & keys
-*.key
-*.pem
-*.cert
-*.p12
-*.pfx
-
-# OS junk
+# --- OPERATING SYSTEMS ---
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Editor files
-.vscode/
-.idea/
-*.swp
+# --- ENVIRONMENT & SECRETS (CRITICAL) ---
+.env
+.env.*
+!.env.example  # <-- This tells Git to commit the example file, but NOT the real keys
 
-# Logs
-*.log
-error_log
-
-# Python
+# --- DEPENDENCIES ---
+node_modules/
+vendor/
+venv/
+env/
+.venv
 __pycache__/
 *.pyc
+*.pyo
 
-# Node
-node_modules/
+# --- BUILD / OUTPUT DIRECTORIES ---
+/dist/
+/build/
+/target/
+/out/
+/bin/
+/obj/
+*.exe
+*.dll
+*.so
+*.jar
+*.war
+*.class
 
-# Build artifacts
-dist/
-build/
+# --- LOGS & TEMP FILES ---
+*.log
+*.tmp
+*.cache
+*.pid
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- TEST COVERAGE ---
+.coverage
+.nyc_output
+*.cover
+htmlcov/
+
+# --- EDITORS (unless you share workspace settings) ---
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+*~
